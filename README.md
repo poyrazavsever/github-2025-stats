@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# GitHub 2025 Stats Card
 
-## Getting Started
+![App logo](public/logo.png)
 
-First, run the development server:
+Generate a shareable 2025 GitHub stats card for any username. The app fetches data from the GitHub GraphQL API, renders a clean card, and lets you download it as a PNG.
 
+![Example stats card](public/example.png)
+
+## Features
+- Enter any GitHub username and fetch 2025 contribution stats.
+- Shows totals for contributions, commits, PRs, issues, stars, reviews, longest streak, and top language.
+- Download the card as a high-resolution PNG (uses html2canvas).
+- Lightweight UI with a holiday-themed logo and responsive layout.
+
+## Quick start
+Prerequisites: Node.js 18+ and npm.
+
+1) Install dependencies:
+```bash
+npm install
+```
+2) Create `.env.local` and set a GitHub token:
+```
+GITHUB_TOKEN=your_token_here
+```
+3) Run the dev server:
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
+4) Open http://localhost:3000 and try a username (for example, `octocat`).
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## GitHub token
+- Use a fine-grained personal access token with read-only scopes for `public_repo` (and `read:user` if needed).
+- Storing the token in `.env.local` avoids hitting anonymous rate limits.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## How to use the app
+1) Enter a GitHub username in the input field.
+2) Submit to fetch 2025 stats.
+3) Review the card details.
+4) Click **Download PNG** to save the rendered card image.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## API reference
+- `POST /api/stats`
+  - Body: `{ "username": "the-github-handle" }`
+  - Returns: aggregated 2025 stats (commits, PRs, issues, reviews, stars for repos created in 2025, longest streak, top language, avatar).
+  - Uses the GitHub GraphQL API under the hood.
 
-## Learn More
+## Tech stack
+- Next.js 16 (App Router) and React 19
+- Tailwind CSS 4 for styling
+- html2canvas for PNG export
+- Iconify for icons
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Notes
+- Stats are scoped to the 2025 calendar year.
+- If GitHub rate limits are hit, add or refresh your `GITHUB_TOKEN`.

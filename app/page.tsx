@@ -1,9 +1,9 @@
-import Image from "next/image";
+import { HeaderBanner } from "./components/HeaderBanner";
 
 export default function Home() {
   return (
-    <div>
-      
-    </div>
+    <main className="min-h-screen bg-white">
+      <HeaderBanner />
+    </main>
   );
 }
